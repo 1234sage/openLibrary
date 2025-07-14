@@ -5,6 +5,7 @@ import BookList from "./components/BookList";
 import ErrorMessage from "./components/ErrorMessage";
 import SearchBar from "./components/SearchBar";
 import Loader from "./components/Loader";
+import BookModal from "./components/BookModal"
 
 const App = () => {
     const [books,setBooks] = useState([]);
@@ -12,6 +13,7 @@ const App = () => {
     const [search, setSearch] = useState("");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
+    const[selectedBook, setSelectedBook] = useState(null);
 
     useEffect (() => {
         fetch("https://openlibrary.org/search.json?q=javascript")
@@ -42,8 +44,12 @@ const App = () => {
             ): error ? (
                 <ErrorMessage/>
             ):(
-                <BookList books = {filteredBooks}/>
+                <BookList books = {filteredBooks} onBookClick = {setSelectedBook}/>
             )}
+            {selectedBook && (
+                <BookModal book = {selectedBook} onClose = {()=> setSelectedBook(null)}/>
+            )}
+
         </div>
     )
 }

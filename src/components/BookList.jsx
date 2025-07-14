@@ -1,11 +1,11 @@
 import React from "react";
 import BookCard from "./BookCard";
 
-const BookList = ({books}) => {
+const BookList = ({books, onBookClick}) => {
     return (
         <div className = "book-list">
             {books.map((book) => (
-                <BookCard id = {book.id} book = {book}/>
+                <BookCard id = {book.id} book = {book} onClick = {() => onBookClick(book)}/>
             ))}
         </div>
     )
